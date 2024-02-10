@@ -1,6 +1,6 @@
 import sympy
 from sympy.simplify.fu import TR5, TR8, TR0
-from pyslvs import VPoint
+from pyslvs import VPoint, t_config, expr_solving
 import matplotlib.pyplot as plt
 from itertools import pairwise
 import numpy
@@ -332,22 +332,22 @@ def main():
     linkage.compress_links()
     print(linkage.expr())
 
+    inputs = (linkage.create_input(linkage.a, linkage.origin),)
+    exprs = t_config(linkage.points, inputs)
+    xs, ys = [], []
+
+    for angle in numpy.arange(0, 100, 0.05):
+        print(angle)
+        try:
+            result = expr_solving(exprs, linkage.points, {pair: angle for pair in inputs})
+            x, y = result[linkage.index(linkage.pen)]
+            xs.append(x)
+            ys.append(y)
+        except Exception as e:
+            print(angle, e)
+            break
+    plt.plot(xs, ys)
+    plt.show()
+
 if __name__ == "__main__":
     main()
-
-# # Parse the mechanism expression into a list of joint data
-# vpoints = parse_vpoints(expr)
-# print(vpoints[0])
-# print(get_vlinks([vpoints[0]]))
-# # Config joint data and control data for the solver
-# exprs = t_config(vpoints, inputs)
-# # Solve the position
-# xs, ys = [], []
-# for angle in numpy.arange(0, 360, 0.01):
-#     result = expr_solving(exprs, vpoints, {pair: angle for pair in inputs})
-#     x, y = result[7]
-#     xs.append(x)
-#     ys.append(y)
-
-# plt.plot(xs, ys)
-# plt.show()
