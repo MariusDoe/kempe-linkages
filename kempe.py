@@ -238,7 +238,11 @@ class KempeLinkage(Linkage):
         self.link_points(point, a, base)
         return point
 
-    def sum_angles(self, angles, base: VPoint, axis: VPoint) -> VPoint:
+    def sum_angles(self, angle, base: VPoint, axis: VPoint) -> VPoint:
+        assert angle.is_Add
+        def should_sort_to_back(x):
+            return x.is_constant() or x.could_extract_minus_sign()
+        angles = sorted(angle.args, key = should_sort_to_back)
         vector = self.angle_to_vector(angles[0])
         for angle in angles[1:]:
             if angle.is_constant():
@@ -275,7 +279,7 @@ class KempeLinkage(Linkage):
         if angle == self.beta:
             return self.b
         if angle.is_Add:
-            return self.sum_angles(angle.args, self.origin, self.x_axis)
+            return self.sum_angles(angle, self.origin, self.x_axis)
         if angle.is_Mul:
             factor, angle = angle.as_coeff_Mul()
             assert factor > 0 and factor % 1 == 0, "invalid cosine angle factor " + str(factor)
