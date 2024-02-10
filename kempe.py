@@ -63,6 +63,12 @@ class Linkage:
         point_exprs = ",".join((point.expr() for point in self.points))
         return f"M[{point_exprs}]"
 
+    def index(self, point: VPoint):
+        return self.points.index(point)
+
+    def create_input(self, a: VPoint, base: VPoint):
+        return (self.index(a), self.index(base))
+
     def add_point(self, coords: [float, float]) -> VPoint:
         links = ()
         join_type = 0
