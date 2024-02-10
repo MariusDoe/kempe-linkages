@@ -69,7 +69,7 @@ class Linkage:
     def create_input(self, a: VPoint, base: VPoint):
         return (self.index(a), self.index(base))
 
-    def add_point(self, coords: [float, float]) -> VPoint:
+    def add_point(self, coords: tuple[float, float]) -> VPoint:
         links = ()
         join_type = 0
         angle = 0
