@@ -212,8 +212,23 @@ class KempeLinkage(Linkage):
         return self.multiply_angle(half_sum, base, axis, 2)
 
     def subtract_angles(self, a: VPoint, b: VPoint, base: VPoint, axis: VPoint) -> VPoint:
-        # TODO
-        assert False, "subtract_angles is not implemented yet"
+        a_distance = a.distance(base)
+        b_distance = b.distance(base)
+        axis_distance = axis.distance(base)
+        base_coords = coords(base)
+        half_a_direction = point_from_angle_to_x_axis(interpolate(angle_to_x_axis(a), angle_to_x_axis(axis), 0.5))
+        half_a_distance = (a_distance * axis_distance) ** 0.5
+        half_a = self.add_point(base_coords + half_a_direction * half_a_distance)
+        counter_a_half_a = self.contra_paralellelogram(a, base, half_a)
+        counter_half_a_axis = self.contra_paralellelogram(half_a, base, axis)
+        self.link_points(half_a, counter_a_half_a, counter_half_a_axis)
+        difference_direction = point_from_angle_to_x_axis(angle_to_x_axis(a) - angle_to_x_axis(b) + angle_to_x_axis(axis))
+        difference_distance = a_distance * axis_distance / b_distance
+        difference = self.add_point(base_coords + difference_direction * difference_distance)
+        counter_b_half_a = self.contra_paralellelogram(b, base, half_a)
+        counter_half_a_difference = self.contra_paralellelogram(half_a, base, difference)
+        self.link_points(half_a, counter_b_half_a, counter_half_a_difference)
+        return difference
 
     def add_constant_angle(self, a: VPoint, angle: float, base: VPoint) -> VPoint:
         base_a = coords(a) - coords(base)
