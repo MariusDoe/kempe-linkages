@@ -4,6 +4,10 @@ This is an implementation of [Kempe's universality theorem][kempe]. It processes
 a given [algebraic curve][algebraic_curve] and turns it into a linkage
 containing a joint that traces the curve.
 
+## Demo
+
+<video src="assets/demo.mp4" controls></video>
+
 ## Input
 
 The program takes an algebraic curve as input. An algebraic curve is the zero
@@ -57,7 +61,7 @@ called _gadgets_, which correspond to simple mathematical operations, the
 reformulated equation is then turned into a linkage constraining the original
 parallelogram. The linkage is then simulated to trace the curve.
 
-![parallelogram](images/parallelogram.png)
+![parallelogram](assets/parallelogram.png)
 
 ## Reformulating the equation
 
