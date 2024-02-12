@@ -145,8 +145,19 @@ than being based on actual testing (it should decrease the amount of work that
 
 # Designing curves
 
-Algebraic curves are not very intuitive. Thus, it would be nice if the implementation could help the user design them. Some basic tools are already present in `helpers.py`:
-`implicitize` takes a [parametric curve][parametric_function] and produces an implicit one and `bezier` can produce a [Bézier curve][bezier_curve].
+Algebraic curves are not very intuitive. Thus, it would be nice if the
+implementation could help the user design them. Some basic tools are already
+present in `helpers.py`: `implicitize` takes a
+[parametric curve][parametric_function] and produces an implicit one and
+`bezier` can produce a [Bézier curve][bezier_curve].
+
+Another approach is to build a complex curve from simpler ones. For example, two
+Bézier curves may be concatenated together. Mathematically, this can be
+described as the union of the two curves. How this can be achieved is described
+in Chapter 7 of
+[_Generalizations of Kempe's Universality Theorem_][generalizations_pdf].  As
+[SVG][svg] files are largely comprised of concatenations of Bézier curves and
+other simple curves, an "SVG import" may be possible.
 
 # Limitations
 
@@ -208,6 +219,7 @@ theorem.][generalizations] ([PDF][generalizations_pdf])
 [implicit_function]: https://en.wikipedia.org/wiki/Implicit_function
 [parametric_function]: https://en.wikipedia.org/wiki/Parametric_equation
 [bezier_curve]: https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+[svg]: https://en.wikipedia.org/wiki/SVG
 
 [kempe]: https://doi.org/10.1112/plms/s1-7.1.213
 [kempe_pdf]: https://zenodo.org/records/1447760/files/article.pdf
