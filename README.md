@@ -4,16 +4,16 @@ This is an implementation of [Kempe's universality theorem][kempe]. It processes
 a given [algebraic curve][algebraic_curve] and turns it into a linkage
 containing a joint that traces the curve.
 
-## Demo
+### Demo
 
 <video src="assets/demo.mp4" controls></video>
 
-## Input
+### Input
 
 The program takes an algebraic curve as input. An algebraic curve is the zero
 set of of polynomial in two variables `x` and `y`. That is, you can combine `x`,
 `y` and the real numbers using addition, subtraction and multiplication and when
-you set the resulting expression to zero, that [implicitely
+you set the resulting expression to zero, that [implicitly
 defines][implicit_function] a curve. A point lies on that curve exactly when the
 expression equals zero after you substitute `x` and `y` with the coordinates of
 the point.
@@ -21,7 +21,7 @@ the point.
 In addition to the curve, the program takes a bunch of options that configure
 the output.
 
-## Output
+### Output
 
 The program outputs a simulation of a linkage. The linkage contains a joint, the
 _pen_, that traces the algebraic curve. However, the pen is constrained to lie
@@ -32,11 +32,11 @@ The simulation of the linkage is visualized as an animated plot that shows the
 trace of the pen as well as the movements of the links and the pen. Which links
 are shown can be configured using input options.
 
-# How to install
+## How to install
 
 Clone the repository and install the dependencies listed in `requirements.txt`.
 
-# How to use
+## How to use
 
 `main.py` is the entry point of the program. These two lines can be changed to configure the input and output:
 ```python
@@ -49,7 +49,7 @@ the initial coordinates of the pen. `visible` specifies which links should be
 shown during the simulation. The possible values are defined in `options.py`.
 See [_building the linkage_](#building-the-linkage) for more context.
 
-# How it works
+## How it works
 
 The implementation follows Kempe's description of how to construct a linkage for
 a given algebraic curve. The core idea is to construct a parallelogram and
@@ -63,7 +63,7 @@ parallelogram. The linkage is then simulated to trace the curve.
 
 ![parallelogram](assets/parallelogram.png)
 
-## Reformulating the equation
+### Reformulating the equation
 
 The equation for the algebraic curve is given as a polynomial in the two
 variables `x` and `y`. To reformulate the equation in terms of α and β,
@@ -82,7 +82,7 @@ a * cos(m * α + n * β + γ) + b * cos(...) + ... = 0
 Here, `a`, `b` and `γ` represent arbitrary real numbers while `m` and `n` are
 integers. This normalization is done using `sympy`.
 
-## Gadgets
+### Gadgets
 
 Kempe defines multiple gadgets to build up to the whole equation:
 1. The _contra-parallelogram_ is a quadrilateral with equal opposing sides, with
@@ -96,7 +96,7 @@ Kempe defines multiple gadgets to build up to the whole equation:
 7. A rigid triangle can be used to add a constant angle to an angle.
 8. A link of arbitrary length can be constrained to make the same angle with the x-axis as another link.
 
-## Building the linkage
+### Building the linkage
 
 Using these gadgets, we can build a linkage that models the equation, all
 from the basis angles α and β. Multiplicators can be used to turn `α` into `m *
@@ -109,7 +109,7 @@ constrain the sum of the `x` coordinates to the `y` axis. Thereby, we set the
 sum of the scaled cosines to `0`, achieving our goal of modelling the equation
 with a linkage.
 
-## Simulating the linkage
+### Simulating the linkage
 
 The construction and simulation of the linkage is done using
 `python-solvespace`, a Python binding for the CAD tool `solvespace`.
@@ -121,7 +121,7 @@ pen over time, so we can also display its trace. Doing this process over and
 over again produces an animated plot of the links and the trace, i. e. a
 visualization of the simulated linkage.
 
-## Caveats
+### Caveats
 
 Two of the gadgets originally defined by Kempe are vulnerable to
 _degeneration_. That is, by moving them in specific ways, they lose their
@@ -147,7 +147,7 @@ linkages to constrain a joint to the `y` axis, but rather the built-in
 than being based on actual testing (it should decrease the amount of work that
 `solvespace` has to do).
 
-# Designing curves
+## Designing curves
 
 Algebraic curves are not very intuitive. Thus, it would be nice if the
 implementation could help the user design them. Some basic tools are already
@@ -163,7 +163,7 @@ in Chapter 7 of
 [SVG][svg] files are largely comprised of concatenations of Bézier curves and
 other simple curves, an "SVG import" may be possible.
 
-# Limitations
+## Limitations
 
 While the program can _generate_ a linkage for every curve, the _simulation_
 sadly fails for a large number of curves. This can manifest in two ways. Either,
@@ -183,7 +183,7 @@ The exact reason for this is unclear. As the problematic curves are the ones
 with the higher order polynomials, it may be due to inaccuracies/limitations of
 solvespace, i. e. it may not be able to reliably handle very large linkages.
 
-## Debugging
+### Debugging
 
 Another reason may be a problem in the implementation. If this is the case, it
 may be difficult to find the problem, since "debugging" the produced linkages is
@@ -201,13 +201,13 @@ the `.slvs` file format, that `solvespace` uses. It can be found in
 files that cause `solvespace` to crash (the results of some debugging using
 `gdb` suggest that the problem lies in the generation of the handles).
 
-# Future Work
+## Future Work
 
 - Make more complicated algebraic curves feasible, see [limitations](#limitations).
 - Finish the .slvs exporter, see [debugging](#debugging).
 - Incorporate generalizations, see [designing curves](#designing-curves).
 
-# References
+## References
 
 [Kempe, Alfred Bray. On a General Method of describing Plane Curves of the nth
 degree by Linkwork. _Proceedings of The London Mathematical Society_ (1875):
