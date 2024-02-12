@@ -6,7 +6,7 @@ containing a joint that traces the curve.
 
 ### Demo
 
-<video src="assets/demo.mp4" controls></video>
+https://github.com/MariusDoe/kempe-linkages/assets/41512063/c206476a-b6e6-46a6-abcb-27619dcad1d6
 
 ### Input
 
