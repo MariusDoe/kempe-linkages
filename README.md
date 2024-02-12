@@ -28,6 +28,10 @@ The simulation of the linkage is visualized as an animated plot that shows the
 trace of the pen as well as the movements of the links and the pen. Which links
 are shown can be configured using input options.
 
+# How to install
+
+Clone the repository and install the dependencies listed in `requirements.txt`.
+
 # How to use
 
 `main.py` is the entry point of the program. These two lines can be changed to configure the input and output:
